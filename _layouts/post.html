@@ -33,6 +33,12 @@ layout: blog
                                 ({{ site.data.i18n[site.lang].last_updated}}:
                                 <time class="date-updated updated" title="{{ page.last_updated | date_to_xmlschema }}" datetime="{{ page.last_updated | date_to_xmlschema }}">{{ page.last_updated }}</time>)
                             {% endif %}
+                            {% assign word_count = content | number_of_words %}
+                            {% assign reading_minutes = word_count | divided_by: 200 %}
+                            {% if reading_minutes < 1 %}{% assign reading_minutes = 1 %}{% endif %}
+                            <span class="reading-meta">
+                                · {{ word_count }} words · {{ reading_minutes }} min read
+                            </span>
                         </p>
                         <ul class="list-category list-linear">
                             <li class="list-head">{{ site.data.i18n[site.lang].categories }}: </li>
@@ -67,7 +73,11 @@ layout: blog
                 </div>
             </footer>
             <div class="misc-content">
-                {% if site.disqus.shortname and page.comments != false %}
+                {% if site.giscus.repo and site.giscus.repo_id and page.comments != false %}
+                    <div class="comments">
+                        {% include common/giscus.html %}
+                    </div>
+                {% elsif site.disqus.shortname and page.comments != false %}
                     {% include common/disqus.html %}
                     <div class="comments">
                         <button class="center-block show-hidden" title="{{ site.data.i18n[site.lang].show_comments }}" data-disqus-url="{{ page.url | absolute_url }}">{{ site.data.i18n[site.lang].show_comments }}</button>

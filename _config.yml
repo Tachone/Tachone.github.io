@@ -21,7 +21,7 @@ sass:
   style: compressed
 
 # Site Data
-url: # the base hostname & protocol for your site, e.g. http://example.com
+url: https://tachone.github.io
 baseurl: # the subpath of your site, e.g. /blog
 title: Simple Texture
 description: "A gem-based responsive simple texture styled Jekyll theme."
@@ -35,16 +35,8 @@ author:
     - name: facebook
       url:
     - name: github
-      url: https://github.com/yizeng/jekyll-theme-simple-texture
-    - name: instagram
-      url:
-    - name: linkedin
-      url:
-    - name: stackoverflow
-      url:
-    - name: twitter
       url: 
-    - name: vk
+    - name: linkedin
       url:
 home:
   section1: <h1>Simple Texture</h1>
@@ -58,6 +50,24 @@ blog:
 disqus:
   shortname: # e.g. yizeng
   public_key: # e.g. ULZ0b9TFefCUJHKQd4JCKv2v3u27YoG7YG8zXPewkWrT333Z0Se9YnxLzoV6VM8W
+
+# Giscus comment system. See https://giscus.app to generate your config.
+# Steps:
+#   1. Go to https://giscus.app
+#   2. Enter your repo: Tachone/Tachone.github.io
+#   3. Enable Discussions on your GitHub repo (Settings -> Features -> Discussions)
+#   4. Choose a discussion category (recommended: "Announcements")
+#   5. Copy the generated repo_id and category_id below
+giscus:
+  repo: Tachone/Tachone.github.io
+  repo_id: R_kgDOR8KbXA      # Paste your repo_id here, e.g. R_kgDOxxxxxxxx
+  category: Announcements
+  category_id: DIC_kwDOR8KbXM4C6zrK   # Paste your category_id here, e.g. DIC_kwDOxxxxxxxx
+  mapping: pathname # How to map pages to discussions: pathname, url, title, og:title
+  reactions_enabled: 1  # Show reactions (1 = yes, 0 = no)
+  input_position: bottom  # Where to put the comment box: top or bottom
+  theme: light      # Theme: light, dark, preferred_color_scheme, etc.
+  lang: en          # Comment language
 google_tag_manager: # e.g. 'GTM-KCQJXZ8F'
 addthis_public_id: # AddThis sharing plugin. See http://www.addthis.com/. E.g. ra-53329e27694534j5 
 

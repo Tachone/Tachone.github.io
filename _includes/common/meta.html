@@ -2,6 +2,17 @@
 <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+{% unless page.description %}
+    {% if page.excerpt %}
+        {% assign page_description = page.excerpt | strip_html | strip_newlines | truncate: 160 %}
+    {% elsif content %}
+        {% assign page_description = content | strip_html | strip_newlines | truncate: 160 %}
+    {% endif %}
+    {% if page_description %}
+        <meta name="description" content="{{ page_description }}">
+    {% endif %}
+{% endunless %}
+
 {% seo %}
 <meta name="keywords" content="{% if site.author.username %}{{ site.author.username }},{% endif %}{% if page.tags != null %}{{ page.tags | join: ',' }}{% else %}{{ site.blog.keywords }}{% endif %}" />
 

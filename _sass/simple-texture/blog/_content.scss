@@ -711,7 +711,32 @@
         .post-buttons {
             margin-bottom: 18px;
 
-            .addthis_toolbox {
+            .code-copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    padding: 2px 10px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #aaa;
+    background: transparent;
+    border: 1px solid #555;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        color: #fff;
+        border-color: #aaa;
+    }
+}
+
+div.highlight:hover .code-copy-btn {
+    opacity: 1;
+}
+
+.addthis_toolbox {
                 float: right;
 
                 a {

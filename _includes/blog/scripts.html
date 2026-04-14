@@ -86,6 +86,39 @@ $(document).ready(function () {
 })(jQuery, window);
 </script>
 
+<!-- Code block copy button -->
+<script>
+(function () {
+    function addCopyButtons() {
+        document.querySelectorAll('div.highlight').forEach(function (codeBlock) {
+            var copyButton = document.createElement('button');
+            copyButton.className = 'code-copy-btn';
+            copyButton.type = 'button';
+            copyButton.innerText = 'Copy';
+
+            copyButton.addEventListener('click', function () {
+                var code = codeBlock.querySelector('code') || codeBlock.querySelector('pre');
+                navigator.clipboard.writeText(code.innerText.trimEnd()).then(function () {
+                    copyButton.innerText = 'Copied!';
+                    setTimeout(function () {
+                        copyButton.innerText = 'Copy';
+                    }, 2000);
+                });
+            });
+
+            codeBlock.style.position = 'relative';
+            codeBlock.appendChild(copyButton);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addCopyButtons);
+    } else {
+        addCopyButtons();
+    }
+})();
+</script>
+
 <script src='//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-buttons.min.js'></script>
 <script src="{{ site.baseurl }}/assets/javascripts/unveil/jquery.unveil.min.js"></script>

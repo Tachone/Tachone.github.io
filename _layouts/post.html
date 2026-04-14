@@ -49,11 +49,44 @@ layout: blog
                             {% assign tags_list = page.tags | sort %} {% include helpers/tags_list %}
                         </ul>
                     </div>
+                    {% if page.toc != false %}
+                    <div id="article-toc" class="article-toc">
+                        <h4 class="toc-title">Table of Contents</h4>
+                        <nav id="toc-nav"></nav>
+                    </div>
+                    {% endif %}
                     <div itemprop="articleBody">
                         {{ content }}
                     </div>
                 </div>
             </div>
+            {% assign related_posts = "" | split: "" %}
+            {% for post in site.posts %}
+                {% if post.url != page.url %}
+                    {% for tag in page.tags %}
+                        {% if post.tags contains tag %}
+                            {% unless related_posts contains post %}
+                                {% assign related_posts = related_posts | push: post %}
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            {% assign related_posts = related_posts | uniq | limit: 3 %}
+            {% if related_posts.size > 0 %}
+            <div class="related-posts">
+                <h4 class="related-posts-title">Related Posts</h4>
+                <ul class="related-posts-list">
+                    {% for related_post in related_posts %}
+                    <li>
+                        <a href="{{ related_post.url | relative_url }}">{{ related_post.title }}</a>
+                        <span class="related-post-date">{{ related_post.date | date: '%B %d, %Y' }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
             <footer class="unit-foot">
                 <div class="unit-inner unit-foot-inner">
                     <div class="post-buttons">

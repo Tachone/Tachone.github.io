@@ -86,6 +86,54 @@ $(document).ready(function () {
 })(jQuery, window);
 </script>
 
+<!-- Table of Contents auto-generation -->
+<script>
+(function () {
+    function buildToc() {
+        var tocNav = document.getElementById('toc-nav');
+        if (!tocNav) return;
+
+        var articleBody = document.querySelector('[itemprop="articleBody"]');
+        if (!articleBody) return;
+
+        var headings = articleBody.querySelectorAll('h2, h3');
+        if (headings.length < 2) {
+            var tocContainer = document.getElementById('article-toc');
+            if (tocContainer) tocContainer.style.display = 'none';
+            return;
+        }
+
+        var tocList = document.createElement('ul');
+        headings.forEach(function (heading, index) {
+            if (!heading.id) {
+                heading.id = 'toc-heading-' + index;
+            }
+            var listItem = document.createElement('li');
+            listItem.className = 'toc-' + heading.tagName.toLowerCase();
+
+            var link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = heading.textContent;
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.getElementById(heading.id).scrollIntoView({ behavior: 'smooth' });
+            });
+
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+        });
+
+        tocNav.appendChild(tocList);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', buildToc);
+    } else {
+        buildToc();
+    }
+})();
+</script>
+
 <!-- Code block copy button -->
 <script>
 (function () {

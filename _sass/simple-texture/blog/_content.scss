@@ -766,12 +766,15 @@
     }
 
     #toc-nav ul ul {
-        padding-left: 20px;
+        margin: 0;
+        padding: 0 0 0 20px;
+        list-style: none;
     }
 
     #toc-nav li {
         margin: 4px 0;
         line-height: 1.5;
+        list-style: none;
 
         a {
             color: #555;
@@ -784,10 +787,6 @@
                 text-decoration: underline;
             }
         }
-    }
-
-    #toc-nav li.toc-h3 {
-        padding-left: 0;
     }
 }
 
@@ -895,12 +894,15 @@ div.highlight:hover .code-copy-btn {
     }
 
     #toc-nav ul ul {
-        padding-left: 20px;
+        margin: 0;
+        padding: 0 0 0 20px;
+        list-style: none;
     }
 
     #toc-nav li {
         margin: 4px 0;
         line-height: 1.5;
+        list-style: none;
 
         a {
             color: #555;
@@ -913,10 +915,6 @@ div.highlight:hover .code-copy-btn {
                 text-decoration: underline;
             }
         }
-    }
-
-    #toc-nav li.toc-h3 {
-        padding-left: 0;
     }
 }
 

@@ -21,13 +21,13 @@ sass:
   style: compressed
 
 # Site Data
-url: https://tachone.github.io
+url: https://shitao.me
 baseurl: # the subpath of your site, e.g. /blog
 title: Stone & Wave
 description: "A gem-based responsive simple texture styled Jekyll theme."
 keywords: 'jekyll,theme,gem-based,blog'
 author:
-  name:
+  name: shitao
   job_title:
   location:
   email:

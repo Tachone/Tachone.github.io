@@ -104,10 +104,13 @@ $(document).ready(function () {
         }
 
         var tocList = document.createElement('ul');
+        var currentH2List = null;
+        
         headings.forEach(function (heading, index) {
             if (!heading.id) {
                 heading.id = 'toc-heading-' + index;
             }
+            
             var listItem = document.createElement('li');
             listItem.className = 'toc-' + heading.tagName.toLowerCase();
 
@@ -120,7 +123,20 @@ $(document).ready(function () {
             });
 
             listItem.appendChild(link);
-            tocList.appendChild(listItem);
+            
+            if (heading.tagName === 'H2') {
+                tocList.appendChild(listItem);
+                currentH2List = null;
+            } else if (heading.tagName === 'H3') {
+                if (!currentH2List) {
+                    currentH2List = document.createElement('ul');
+                    var lastH2 = tocList.lastElementChild;
+                    if (lastH2) {
+                        lastH2.appendChild(currentH2List);
+                    }
+                }
+                currentH2List.appendChild(listItem);
+            }
         });
 
         tocNav.appendChild(tocList);

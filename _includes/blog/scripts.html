@@ -211,5 +211,15 @@ $(document).ready(function () {
 
 <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    // kramdown renders ```mermaid as <pre><code class="language-mermaid">
+    // convert them to <div class="mermaid"> before mermaid initializes
+    document.querySelectorAll('pre > code.language-mermaid').forEach(function(code) {
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = code.textContent;
+        code.parentNode.replaceWith(div);
+    });
+
     mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
 </script>

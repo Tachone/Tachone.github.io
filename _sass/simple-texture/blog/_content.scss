@@ -761,20 +761,19 @@
 
     #toc-nav ul {
         margin: 0;
-        padding: 0;
-        list-style: none;
+        padding: 0 0 0 20px;
+        list-style: disc;
     }
 
     #toc-nav ul ul {
         margin: 0;
         padding: 0 0 0 20px;
-        list-style: none;
+        list-style: circle;
     }
 
     #toc-nav li {
         margin: 4px 0;
         line-height: 1.5;
-        list-style: none;
 
         a {
             color: #555;
@@ -889,20 +888,19 @@ div.highlight:hover .code-copy-btn {
 
     #toc-nav ul {
         margin: 0;
-        padding: 0;
-        list-style: none;
+        padding: 0 0 0 20px;
+        list-style: disc;
     }
 
     #toc-nav ul ul {
         margin: 0;
         padding: 0 0 0 20px;
-        list-style: none;
+        list-style: circle;
     }
 
     #toc-nav li {
         margin: 4px 0;
         line-height: 1.5;
-        list-style: none;
 
         a {
             color: #555;

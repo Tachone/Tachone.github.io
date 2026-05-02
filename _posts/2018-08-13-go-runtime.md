@@ -134,7 +134,7 @@ runtime.SetFinalizer(result, func(w *lruWrapper) {
 
 在 lrucache 外面加上一层 wrapper，lrucache 作为 wrapper 的匿名字段存在，并在 wrapper 上注册 SetFinalizer 函数来终止后台 goroutine。由于后台 goroutine 和 lrucache 关联，当没有引用指向 wrapper 时，GC 就会执行关联的 SetFinalizer 终止 lrucache 的后台 goroutine，最终 lrucache 也会变成不可达状态被 GC 回收。
 
-#### 完整实现
+### 完整实现
 
 ```go
 type Cache = *wrapper

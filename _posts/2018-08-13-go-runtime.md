@@ -59,7 +59,7 @@ func (app *App) Stop() {
 
 这种方式除了需要在程序终止之前显式调用 `Stop()`，没有啥问题，事实上在业务层也推荐这种显式的处理方式。
 
-## 问题场景：cache 
+## 问题场景：cache 内存泄露 
 
 比如现在想实现一个 cache 模块，接口很简单：
 
@@ -91,7 +91,7 @@ func main() {
 有没有更好的方式，不需要用户显式关闭，在检测到没有引用之后主动终止 goroutine？当然有。`runtime.SetFinalizer` 可以帮助我们达到这个目的。
 
 
-## SetFinalizer 原理
+## SetFinalizer
 
 ```go
 func SetFinalizer(obj interface{}, finalizer interface{})
@@ -112,7 +112,7 @@ func SetFinalizer(obj interface{}, finalizer interface{})
 + SetFinalizer 最大的问题是延长了对象生命周期。在第一次回收时执行 Finalizer 函数，目标对象重新变成可达状态，直到第二次才真正「销毁」。这对于有大量对象分配的高并发场景，可能会造成很大麻烦。
 + 指针构成的「循环引用」加上 `runtime.SetFinalizer` 会导致内存泄露。
 
-## 正确姿势
+### 正确姿势
 
 如何利用 SetFinalizer 来清理 cache 后台 goroutine？istio 的 lrucache 给了我们一种巧妙的思路：
 
@@ -134,7 +134,7 @@ runtime.SetFinalizer(result, func(w *lruWrapper) {
 
 在 lrucache 外面加上一层 wrapper，lrucache 作为 wrapper 的匿名字段存在，并在 wrapper 上注册 SetFinalizer 函数来终止后台 goroutine。由于后台 goroutine 和 lrucache 关联，当没有引用指向 wrapper 时，GC 就会执行关联的 SetFinalizer 终止 lrucache 的后台 goroutine，最终 lrucache 也会变成不可达状态被 GC 回收。
 
-### 完整实现
+#### 完整实现
 
 ```go
 type Cache = *wrapper
